@@ -3,11 +3,11 @@ import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 
 import Select from "./Select";
-import { languageOptions } from "@/utils/code-editor";
+import { languageOptions, themeOptions } from "@/utils/code-editor";
 
 const CodeEditor = () => {
   const [lang, setLang] = useState<string>("javascript");
-  const [theme, setTheme] = useState<string>("light");
+  const [theme, setTheme] = useState<string>("vs");
 
   const htmlCode = `<html>
   <head>
@@ -32,21 +32,36 @@ const CodeEditor = () => {
     setLang(e.target.value);
   };
 
+  const onChangeTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setTheme(e.target.value);
+  };
+
   return (
-    <div className="relative mt-24 flex-1 space-y-8 shadow rounded-lg overflow-hidden">
+    <div
+      className={`relative mt-24 flex-1 space-y-8 ${
+        theme === "vs-dark" ? "bg-[#1e1e1e]" : "bg-white"
+      } shadow rounded-lg overflow-hidden`}
+    >
       <Editor
-        height="90vh"
+        height="60vh"
+        theme={theme}
         language={lang}
         defaultValue={htmlCode}
-        className="pb-20"
       />
-      <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center gap-6">
+      <div className="px-4 pb-4 flex justify-between items-center gap-6">
         <div className="flex-1 flex items-center gap-3">
           <Select
             options={languageOptions}
             theme={theme}
             onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
               onChangeLang(event)
+            }
+          />
+          <Select
+            options={themeOptions}
+            theme={theme}
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+              onChangeTheme(event)
             }
           />
         </div>

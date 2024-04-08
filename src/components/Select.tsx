@@ -15,7 +15,7 @@ const Select = ({ options, theme = "light", onChange }: IProps) => {
   return (
     <select
       className={`w-fit bg-transparent border border-gray-300 text-xs ${
-        theme === "dark" ? "text-gray-200 placeholder-gray-400" : ""
+        theme === "vs-dark" ? "text-gray-200 placeholder-gray-400" : ""
       } rounded-lg block p-2.5`}
       onChange={onChange}
     >
@@ -23,7 +23,7 @@ const Select = ({ options, theme = "light", onChange }: IProps) => {
         return (
           <option
             value={option.value}
-            className={`${theme === "dark" ? "text-black" : ""}`}
+            className={`${theme === "vs-dark" ? "text-black" : ""}`}
             key={index}
           >
             {option.label}

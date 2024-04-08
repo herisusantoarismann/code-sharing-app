@@ -1,4 +1,4 @@
-import { Option } from "@/components/Field/Select";
+import { Option } from "@/components/Select";
 
 export const languageOptions: Option[] = [
   { label: "Plain Text", value: "plaintext" },
@@ -29,4 +29,9 @@ export const languageOptions: Option[] = [
   { label: "VB.NET", value: "vb" },
   { label: "XML", value: "xml" },
   { label: "YAML", value: "yaml" },
+];
+
+export const themeOptions: Option[] = [
+  { label: "Light", value: "vs" },
+  { label: "Dark", value: "vs-dark" },
 ];
