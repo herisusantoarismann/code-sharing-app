@@ -36,7 +36,7 @@ const CodeEditor = () => {
     <div className="relative mt-24 flex-1 space-y-8 shadow rounded-lg overflow-hidden">
       <Editor
         height="90vh"
-        defaultLanguage={lang}
+        language={lang}
         defaultValue={htmlCode}
         className="pb-20"
       />
