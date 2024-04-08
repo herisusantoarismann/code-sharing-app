@@ -3,6 +3,7 @@ import React from "react";
 
 import Background from "@/assets/Hero-Background-notecode@2x.png";
 import Logo from "@/assets/NoteCodeLogo.svg";
+import { CodeEditor } from "@/components";
 
 const Home = () => {
   return (
@@ -25,6 +26,8 @@ const Home = () => {
             Your Code easily
           </h1>
         </div>
+
+        <CodeEditor />
       </div>
     </div>
   );
