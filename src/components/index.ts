@@ -1,3 +1,4 @@
 import CodeEditor from "./CodeEditor";
+import Select from "./Select";
 
-export { CodeEditor };
+export { CodeEditor, Select };
