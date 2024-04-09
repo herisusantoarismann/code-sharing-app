@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 
 import Background from "@/assets/Hero-Background-notecode@2x.png";
 import Logo from "@/assets/NoteCodeLogo.svg";
 import { CodeEditor } from "@/components";
+import axios from "axios";
 
-const CodeDetail = ({ params }: { params: { id: string } }) => {
+const getData = async (uuid: string) => {
+  const { data } = await axios(`${process.env.API_URL}/${uuid}`);
+
+  return data?.data;
+};
+
+const CodeDetail = async ({ params }: { params: { uuid: string } }) => {
+  const data = await getData(params.uuid);
+
   return (
     <div className="relative min-w-screen min-h-screen flex justify-center items-center bg-purple-600">
       <div className="absolute top-0 left-0 w-full h-full">
