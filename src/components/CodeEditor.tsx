@@ -1,39 +1,33 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Editor from "@monaco-editor/react";
 
 import Select from "./Select";
 import { languageOptions, themeOptions } from "@/utils/code-editor";
 
-const CodeEditor = () => {
-  const [lang, setLang] = useState<string>("javascript");
-  const [theme, setTheme] = useState<string>("vs");
+interface IProps {
+  code: string | undefined;
+  language: string | undefined;
+  theme: string | undefined;
+}
 
-  const htmlCode = `<html>
-  <head>
-    <title>HTML Sample</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <style type="text/css">
-      h1 {
-        color: #CCA3A3;
-      }
-    </style>
-    <script type="text/javascript">
-      alert("I am a sample... visit devChallengs.io for more projects");
-    </script>
-  </head>
-  <body>
-    <h1>Heading No.1</h1>
-    <input disabled type="button" value="Click me" />
-  </body>
-</html>`;
-
+const CodeEditor = ({
+  code,
+  language = "javascript",
+  theme = "vs",
+}: IProps) => {
   const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setLang(e.target.value);
+    language = e.target.value;
   };
 
   const onChangeTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setTheme(e.target.value);
+    theme = e.target.value;
+  };
+
+  const onShare = () => {
+    console.log(theme);
+    console.log(code);
+    console.log(language);
   };
 
   return (
@@ -45,8 +39,8 @@ const CodeEditor = () => {
       <Editor
         height="60vh"
         theme={theme}
-        language={lang}
-        defaultValue={htmlCode}
+        language={language}
+        defaultValue={code}
       />
       <div className="px-4 pb-4 flex justify-between items-center gap-6">
         <div className="flex-1 flex items-center gap-3">
@@ -71,6 +65,7 @@ const CodeEditor = () => {
               ? "text-[#F8FAFC] bg-[#364153] hover:bg-[#364153]/55"
               : "text-white bg-[#406AFF] hover:bg-[#406AFF]/85"
           } rounded-full `}
+          onClick={onShare}
         >
           <svg
             width="16"

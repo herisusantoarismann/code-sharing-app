@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
+import axios from "axios";
 
 import Background from "@/assets/Hero-Background-notecode@2x.png";
 import Logo from "@/assets/NoteCodeLogo.svg";
 import { CodeEditor } from "@/components";
-import axios from "axios";
 
 const getData = async (uuid: string) => {
   const { data } = await axios(`${process.env.API_URL}/${uuid}`);
@@ -36,7 +36,11 @@ const CodeDetail = async ({ params }: { params: { uuid: string } }) => {
           </h1>
         </div>
 
-        <CodeEditor />
+        <CodeEditor
+          code={data?.code}
+          language={data?.language}
+          theme={data?.theme}
+        />
       </div>
     </div>
   );

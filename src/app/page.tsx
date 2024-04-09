@@ -1,11 +1,19 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 
 import Background from "@/assets/Hero-Background-notecode@2x.png";
 import Logo from "@/assets/NoteCodeLogo.svg";
 import { CodeEditor } from "@/components";
+import { ICode } from "@/types/code";
 
 const Home = () => {
+  const [data, setData] = useState<ICode>({
+    code: "",
+    language: "javascript",
+    theme: "vs",
+  });
+
   return (
     <div className="relative min-w-screen min-h-screen flex justify-center items-center bg-purple-600">
       <div className="absolute top-0 left-0 w-full h-full">
@@ -27,7 +35,11 @@ const Home = () => {
           </h1>
         </div>
 
-        <CodeEditor />
+        <CodeEditor
+          code={data?.code}
+          language={data?.language}
+          theme={data?.theme}
+        />
       </div>
     </div>
   );
