@@ -40,6 +40,7 @@ const CodeDetail = async ({ params }: { params: { uuid: string } }) => {
           code={data?.code}
           language={data?.language}
           theme={data?.theme}
+          id={params.uuid}
         />
       </div>
     </div>
