@@ -6,6 +6,7 @@ import Select from "./Select";
 import { languageOptions, themeOptions } from "@/utils/code-editor";
 import axios from "axios";
 import { ICode } from "@/types/code";
+import { useRouter } from "next/navigation";
 
 interface IProps {
   code: string | undefined;
@@ -20,6 +21,8 @@ const CodeEditor = ({
   theme = "vs",
   id,
 }: IProps) => {
+  const router = useRouter();
+
   const [data, setData] = useState<ICode>({
     code: code,
     language: language,
@@ -58,15 +61,15 @@ const CodeEditor = ({
     try {
       if (id) {
         const res = await axios.put(`/api/code/${id}`, data);
-
-        console.log(res);
       } else {
         const res = await axios.post(`/api/code`, data);
 
-        console.log(res);
+        const { uuid } = res.data?.data;
+
+        router.push(`/${uuid}`);
       }
     } catch (error) {
-      // console.log(error)
+      console.log(error);
     }
   };
 
