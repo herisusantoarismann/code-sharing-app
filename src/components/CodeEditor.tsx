@@ -4,6 +4,8 @@ import Editor from "@monaco-editor/react";
 
 import Select from "./Select";
 import { languageOptions, themeOptions } from "@/utils/code-editor";
+import axios from "axios";
+import { ICode } from "@/types/code";
 
 interface IProps {
   code: string | undefined;
@@ -18,20 +20,54 @@ const CodeEditor = ({
   theme = "vs",
   id,
 }: IProps) => {
+  const [data, setData] = useState<ICode>({
+    code: code,
+    language: language,
+    theme: theme,
+  });
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    language = e.target.value;
+    setData((prevState) => {
+      return {
+        ...prevState,
+        language: e.target.value,
+      };
+    });
   };
 
   const onChangeTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    theme = e.target.value;
+    setData((prevState) => {
+      return {
+        ...prevState,
+        theme: e.target.value,
+      };
+    });
   };
 
-  const onShare = () => {
-    console.log(theme);
-    console.log(code);
-    console.log(language);
+  const onChangeValue = (value: string | undefined) => {
+    setData((prevState) => {
+      return {
+        ...prevState,
+        code: value,
+      };
+    });
+  };
+
+  const onShare = async () => {
+    try {
+      if (id) {
+        const res = await axios.put(`/api/code/${id}`, data);
+
+        console.log(res);
+      } else {
+        const res = await axios.post(`/api/code`, data);
+
+        console.log(res);
+      }
+    } catch (error) {
+      // console.log(error)
+    }
   };
 
   const onCopyLink = () => {
@@ -54,27 +90,30 @@ const CodeEditor = ({
       </div>
       <div
         className={`mt-2 relative flex-1 space-y-8 ${
-          theme === "vs-dark" ? "bg-[#1e1e1e]" : "bg-white"
+          data?.theme === "vs-dark" ? "bg-[#1e1e1e]" : "bg-white"
         } shadow rounded-lg overflow-hidden`}
       >
         <Editor
           height="60vh"
-          theme={theme}
-          language={language}
-          defaultValue={code}
+          theme={data?.theme}
+          language={data?.language}
+          defaultValue={data?.code}
+          onChange={(value) => onChangeValue(value)}
         />
         <div className="px-4 pb-4 flex justify-between items-center gap-6">
           <div className="flex-1 flex items-center gap-3">
             <Select
               options={languageOptions}
-              theme={theme}
+              theme={data?.theme}
+              value={data?.language}
               onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                 onChangeLang(event)
               }
             />
             <Select
               options={themeOptions}
-              theme={theme}
+              theme={data?.theme}
+              value={data?.theme}
               onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                 onChangeTheme(event)
               }
@@ -98,29 +137,29 @@ const CodeEditor = ({
                   <path
                     d="M7.75725 13.4142L5.63593 11.2929C4.07383 9.7308 4.07383 7.19814 5.63593 5.63604V5.63604C7.19803 4.07395 9.73069 4.07395 11.2928 5.63604L13.4141 7.75736"
                     stroke="#677489"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M14.8282 14.8285L9.17139 9.17163"
                     stroke="#677489"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <path
                     d="M10.5858 16.2426L12.7071 18.3639C14.2692 19.926 16.8019 19.926 18.364 18.3639V18.3639C19.9261 16.8019 19.9261 14.2692 18.364 12.7071L16.2426 10.5858"
                     stroke="#677489"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               </button>
               <span
                 className={`${
-                  theme === "vs-dark" ? "text-[#CED6E1]" : "text-black"
+                  data?.theme === "vs-dark" ? "text-[#CED6E1]" : "text-black"
                 } text-sm`}
               >
                 .../{id?.substring(0, 10)}....
@@ -128,7 +167,7 @@ const CodeEditor = ({
             </div>
             <button
               className={`py-2 px-5 font-semibold flex items-center gap-2 ${
-                theme === "vs-dark"
+                data?.theme === "vs-dark"
                   ? "text-[#F8FAFC] bg-[#364153] hover:bg-[#364153]/55"
                   : "text-white bg-[#406AFF] hover:bg-[#406AFF]/85"
               } rounded-full `}

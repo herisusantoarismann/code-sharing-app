@@ -16,7 +16,7 @@ datasource db {
 model Code{
   id Int @id @default(autoincrement())
   uuid String @unique
-  code String
+  code String @db.Text
   language String
   theme String
   created_at DateTime @default(now())

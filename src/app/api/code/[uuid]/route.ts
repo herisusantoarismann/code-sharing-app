@@ -1,13 +1,19 @@
 import prisma from "@/services/prisma-client";
-import { v4 as uuidv4 } from "uuid";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function PUT(
+  request: Request,
+  { params }: { params: { uuid: string } }
+) {
   const body = await request.json();
 
-  const data = await prisma.code.create({
+  console.log(params.uuid);
+
+  const data = await prisma.code.update({
+    where: {
+      uuid: params.uuid,
+    },
     data: {
-      uuid: uuidv4(),
       code: body?.code,
       language: body?.language,
       theme: body?.theme,
