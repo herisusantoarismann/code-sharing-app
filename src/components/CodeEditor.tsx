@@ -185,7 +185,7 @@ const CodeEditor = ({
                   fill="#F8FAFC"
                 />
               </svg>
-              Share
+              {id ? "Save" : "Share"}
             </button>
           </div>
         </div>
