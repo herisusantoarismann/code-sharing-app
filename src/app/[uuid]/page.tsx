@@ -25,7 +25,7 @@ const CodeDetail = async ({ params }: { params: { uuid: string } }) => {
         />
       </div>
 
-      <div className="relative py-16 w-2/4 p-4 text-[#121826] Z-10">
+      <div className="relative max-w-full w-full py-16 mx-4 xl:mx-0 lg:w-3/4 2xl:w-2/4 p-4 text-[#121826] Z-10">
         <div className="flex flex-col justify-center items-center gap-2 lg:gap-4">
           <Image src={Logo} style={{ objectFit: "cover" }} alt="logo" />
           <h1 className="mt-6 text-lg lg:text-4xl font-semibold">

@@ -103,8 +103,8 @@ const CodeEditor = ({
           defaultValue={data?.code}
           onChange={(value) => onChangeValue(value)}
         />
-        <div className="px-4 pb-4 flex justify-between items-center gap-6">
-          <div className="flex-1 flex items-center gap-3">
+        <div className="px-4 pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="flex-1 flex items-start md:items-center gap-3">
             <Select
               options={languageOptions}
               theme={data?.theme}
@@ -122,7 +122,7 @@ const CodeEditor = ({
               }
             />
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
             <div
               className={`${
                 id ? "visible" : "invisible"
